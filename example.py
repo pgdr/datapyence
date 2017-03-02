@@ -2,21 +2,25 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+def print_analysis(arr):
+    print('%4.1f +/- %4.1f (%4.1f %4.1f %4.1f %4.1f %4.1f)'
+          % analysis(arr))
+
 def analysis(arr):
-    print('%.1f +/- %.1f (%.1f %.1f %.1f %.1f %.1f)'
-          % (arr.mean(), arr.std(),
-          arr.min(),
-          np.percentile(arr, 10), np.percentile(arr, 50), np.percentile(arr, 90),
-          arr.max()))
+    return (arr.mean(), arr.std(), arr.min(),
+        np.percentile(arr, 10), np.percentile(arr, 50), np.percentile(arr, 90),
+        arr.max())
 
 df = pd.read_csv('data/pm.csv', delimiter=';')
 pm10 = df[(df.sensor == 'PM10')]
 pm25 = df[(df.sensor == 'PM25')]
+print(repr(pm10))
+
 
 arr_10 = np.array(pm10['value'])
 arr_25 = np.array(pm25['value'])
-analysis(arr_10)
-analysis(arr_25)
+print_analysis(arr_10)
+print_analysis(arr_25)
 
 plt.figure()
 plt.plot(np.array(pm10['value']), color='b')
