@@ -60,12 +60,15 @@ def find_surface(grid, idx, samples):
     return xs,ys,zs
 
 
-
-if __name__ == '__main__':
-    grid = EclGrid.loadFromGrdecl('data/markus.grdecl')
+def main(fname):
+    grid = EclGrid.loadFromGrdecl(fname)
     fig = pylab.figure()
     ax = Axes3D(fig)
 
-    xs, ys, zs = find_surface(grid, 0, 50) # global idx, n, scale
-    ax.scatter(xs,ys,zs)
+    xs, ys, zs = find_surface(grid, 0, 20) # global idx, n, scale
+    ax.plot_trisurf(xs,ys,zs)
     pyplot.show()
+
+
+if __name__ == '__main__':
+    main('data/markus.grdecl')
